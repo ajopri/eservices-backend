@@ -61,7 +61,7 @@ class RegisterController extends BaseController
         $success['password'] =  $password;
 
         if ($user && $userGroup) {
-            $user->notify(new RegisterNotification($user));
+            // $user->notify(new RegisterNotification($user));
             return $this->sendResponse($success, 'User register successfully.');
         } else {
             return $this->sendError('Registration failed.', ['error' => 'User register successfully.']);
