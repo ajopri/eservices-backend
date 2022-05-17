@@ -10,6 +10,7 @@ use App\Models\UserVerify;
 use App\Notifications\RegisterNotification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 
 class RegisterController extends BaseController
 {
@@ -17,7 +18,7 @@ class RegisterController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'contact_code' => 'required',
             'group_id' => 'required',
             'group_access' => 'required',
@@ -64,7 +65,7 @@ class RegisterController extends BaseController
             // $user->notify(new RegisterNotification($user));
             return $this->sendResponse($success, 'User register successfully.');
         } else {
-            return $this->sendError('Registration failed.', ['error' => 'User register successfully.']);
+            return $this->sendError('Registration failed.', ['error' => 'User register failed.'], Response::HTTP_BAD_REQUEST);
         }
     }
 }

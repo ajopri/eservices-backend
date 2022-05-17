@@ -11,13 +11,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends BaseController
 {
     public function index()
     {
         $id = Auth::id();
-        $user = User::find($id)->load('role');
+        $user = User::find($id)->load('role')->first();
 
         if (is_null($user)) {
             return $this->sendError('User not found.');
@@ -72,7 +73,7 @@ class UserController extends BaseController
         }
 
         if (is_null($verifyUser)) {
-            return $this->sendError('User not found.');
+            return $this->sendError('User not found.', 'Not Found', Response::HTTP_NOT_FOUND);
         }
 
         if (!$user->active) {
@@ -88,5 +89,16 @@ class UserController extends BaseController
         }
 
         return $this->sendResponse($message, 'User retrieved successfully.');
+    }
+
+    public function getUser()
+    {
+        $user = User::with(['role', 'group'])->get();
+
+        if (is_null($user)) {
+            return $this->sendError('User data not found.',null, Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->sendResponse($user, 'User retrieved successfully.');
     }
 }
