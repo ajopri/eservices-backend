@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('user', UserController::class);
+    Route::get('/users', [UserController::class, 'getCustomers']);
 });
 
 Route::post('/register', [RegisterController::class, 'store']);
