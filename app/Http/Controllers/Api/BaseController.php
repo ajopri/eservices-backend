@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class BaseController extends Controller
 {
@@ -10,17 +11,19 @@ class BaseController extends Controller
     {
         $response = [
             'success' => true,
+            'code' => Response::HTTP_OK,
             'data' => $result,
             'message' => $message,
         ];
 
-        return response()->json($response, 200);
+        return response()->json($response, Response::HTTP_OK);
     }
 
-    public function sendError($error, $errorMessage = [], $code = 404)
+    public function sendError($error, $errorMessage = [], $code = Response::HTTP_NOT_FOUND)
     {
         $response = [
             'success' => false,
+            'code' => $code,
             'message' => $error
         ];
 

@@ -43,6 +43,8 @@
                                 </tr>
                                 <tr>
                                     <td class="content-cell">
+                                        <img src="{{env('APP_URL')}}/images/undraw.png" class="img-bottom" alt="Laravel Logo">
+
                                         {{ Illuminate\Mail\Markdown::parse($slot) }}
 
                                         {{ $subcopy ?? '' }}

@@ -48,9 +48,9 @@ class RegisterNotification extends Notification
 
         return (new MailMessage)
             ->greeting('Your e-services account has been created for you.')
-            ->line('Dear, ' . $user->name)
-            ->line('We want to give '.$user->group->name.' access to all transaction details with MahaChem. An account has been created with your email '.$user->email)
-            ->line('Please activate it here to use our e-services:')
+            ->lines([['Dear, ' . $user->name],['We want to give ' . $user->group->name . ' access to all transaction details with MahaChem. An account has been created with your email ' . $user->email],['Please activate it here to use our e-services:']])
+            // ->line('We want to give '.$user->group->name.' access to all transaction details with MahaChem. An account has been created with your email '.$user->email)
+            // ->line('Please activate it here to use our e-services:')
             ->action('Activate Account', $url)
             ->line('*This account is disabled until it’s activated by you.')
             ->markdown('vendor.notifications.activate', ['user' => $this->user]);
