@@ -33,4 +33,4 @@ Route::post('/login/admin', [AuthController::class, 'adminLogin']);
 Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/account/verify/{token}', [UserController::class, 'verifyAccount'])->name('user.verify');
 Route::post('/activate-account', [UserController::class, 'activateAccount']);
-Route::get('/users', [UserController::class, 'getUser'])->name('user.all');
+// Route::get('/users', [UserController::class, 'getUser'])->name('user.all');

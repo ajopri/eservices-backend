@@ -32,7 +32,7 @@ class UserController extends BaseController
      */
     public function getCustomers()
     {
-        $users = User::whereRoleId(env('ROLE_CUSTOMER'))->with('group')->get();
+        $users = User::whereRoleId(env('ROLE_CUSTOMER'))->with(['role', 'group'])->get();
 
         if (is_null($users)) {
             return $this->sendError('User not found.');
